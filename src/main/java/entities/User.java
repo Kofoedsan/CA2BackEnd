@@ -50,13 +50,13 @@ public class User implements Serializable {
   public User() {}
 
    public boolean verifyPassword(String pw){
-        return(BCrypt.checkpw(pw,userPass));
+     return(pw.equals(userPass));
     }
 
   public User(String userName, String userPass) {
     this.userName = userName;
 
-    this.userPass = BCrypt.hashpw(userPass,BCrypt.gensalt());
+    this.userPass = userPass;
   }
 
   public String getUserName() {
@@ -72,7 +72,7 @@ public class User implements Serializable {
   }
 
   public void setUserPass(String userPass) {
-    this.userPass = BCrypt.hashpw(userPass,BCrypt.gensalt());
+    this.userPass = userPass;
   }
 
   public List<Role> getRoleList() {
