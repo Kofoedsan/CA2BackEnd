@@ -5,16 +5,14 @@ import dtos.ChuckDTO;
 import dtos.CombinedDTO;
 import dtos.Covid19DTO;
 import dtos.DadDTO;
+import edu.emory.mathcs.backport.java.util.Arrays;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.List;
 import java.util.Scanner;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 
 public class HttpUtils
 {
@@ -49,15 +47,19 @@ public class HttpUtils
 
         ChuckDTO chuckDTO = gson.fromJson(chuck, ChuckDTO.class);
         DadDTO dadDTO = gson.fromJson(dad, DadDTO.class);
-        Covid19DTO covid19DTO = gson.fromJson(COVID19, Covid19DTO.class);
+        Covid19DTO[] covid19DTO = gson.fromJson(COVID19, Covid19DTO[].class);
+
+        List covid19DTOList = Arrays.asList(covid19DTO);
+
+        System.out.println(covid19DTOList.size());
 
         System.out.println("chuk : " + chuckDTO.getValue());
         System.out.println("dad " + dadDTO.getJoke());
-        System.out.println("cvid " + covid19DTO.getCountry());
+        for (Covid19DTO dto : covid19DTO) {
+            System.out.println("covid " + dto.getCountry());
+        }
 
-        CombinedDTO combinedDTO = new CombinedDTO(chuckDTO, dadDTO, covid19DTO);
-
-        return combinedDTO;
+        return new CombinedDTO(chuckDTO, dadDTO, covid19DTO);
     }
 
 
