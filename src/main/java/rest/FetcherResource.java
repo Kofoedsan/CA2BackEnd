@@ -34,17 +34,17 @@ public class FetcherResource
     @Produces(MediaType.APPLICATION_JSON)
     public String getJokes() throws IOException, ExecutionException, InterruptedException
     {
-//        LocalTime start = LocalTime.now();
-//        String result = gson.toJson(HttpUtils.fetchDataSequential());
-//        LocalTime end = LocalTime.now();
-//        System.out.println("resultat 1  Sequential" + ChronoUnit.MILLIS.between(start,end));
+        LocalTime start = LocalTime.now();
+        String result = gson.toJson(HttpUtils.fetchDataSequential());
+        LocalTime end = LocalTime.now();
+        System.out.println("resultat 1  Sequential" + ChronoUnit.MILLIS.between(start,end));
 
-        LocalTime start2 = LocalTime.now();
-        String result2 = gson.toJson(HttpUtils.fetchDataParallel());
-        LocalTime end2 = LocalTime.now();
-        System.out.println("resultat 2 Parallel " +ChronoUnit.MILLIS.between(start2,end2));
+//        LocalTime start2 = LocalTime.now();
+//        String result2 = gson.toJson(HttpUtils.fetchDataParallel());
+//        LocalTime end2 = LocalTime.now();
+//        System.out.println("resultat 2 Parallel " +ChronoUnit.MILLIS.between(start2,end2));
 
-        return result2;
+        return result;
 
     }
 
