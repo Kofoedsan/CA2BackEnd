@@ -2,7 +2,6 @@ package utils;
 
 import com.google.gson.Gson;
 import dtos.*;
-import edu.emory.mathcs.backport.java.util.Arrays;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -43,27 +42,29 @@ public class HttpUtils
         String chuck = HttpUtils.fetchData("https://api.chucknorris.io/jokes/random");
         String dad = HttpUtils.fetchData("https://icanhazdadjoke.com");
         String c19 = HttpUtils.fetchData("https://covid-19-data.p.rapidapi.com/country/code?code=it");
-        String author = HttpUtils.fetchData("https://quotel-quotes.p.rapidapi.com/search/authors");
+        String recipes = HttpUtils.fetchData("https://random-recipes.p.rapidapi.com/ai-quotes/1");
 
         ChuckDTO chuckDTO = gson.fromJson(chuck, ChuckDTO.class);
         DadDTO dadDTO = gson.fromJson(dad, DadDTO.class);
         Covid19DTO[] covid19DTO = gson.fromJson(c19, Covid19DTO[].class);
-        RandomAuthorDTO randomAuthorDTO = gson.fromJson(author, RandomAuthorDTO.class);
+        RandomRecipesDTO[] randomRecipesDTO = gson.fromJson(recipes, RandomRecipesDTO[].class);
 
+        List<RandomRecipesDTO> recipesDTOList = new ArrayList<>();
+        Collections.addAll(recipesDTOList, randomRecipesDTO);
 
-
-        List <Covid19DTO> covid19DTOList = new ArrayList();
+        List<Covid19DTO> covid19DTOList = new ArrayList();
         Collections.addAll(covid19DTOList, covid19DTO);
 
 
         System.out.println(covid19DTOList.size());
 //        System.out.println("chuk : " + chuckDTO.getValue());
 //        System.out.println("dad " + dadDTO.getJoke());
-        for (Covid19DTO dto : covid19DTOList) {
+        for (Covid19DTO dto : covid19DTOList)
+        {
             System.out.println("covid " + dto.getCountry());
         }
 
-        return new CombinedDTO(chuckDTO, dadDTO, covid19DTOList);
+        return new CombinedDTO(chuckDTO, dadDTO, covid19DTOList, recipesDTOList);
     }
 
 

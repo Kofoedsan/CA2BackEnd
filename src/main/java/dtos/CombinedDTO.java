@@ -11,9 +11,11 @@ public class CombinedDTO
     private String joke2Reference;
     private List <Covid19DTO> covid;
     private String covidReference;
+    private List <RandomRecipesDTO> recipes;
 
 
-    public CombinedDTO(ChuckDTO chuckDTO, DadDTO dadDTO, List <Covid19DTO> covid19DTO)
+
+    public CombinedDTO(ChuckDTO chuckDTO, DadDTO dadDTO, List <Covid19DTO> covid19DTO, List <RandomRecipesDTO> randomRecipesDTO)
     {
         joke1 = chuckDTO.getValue();
         joke1Reference = chuckDTO.getUrl();
@@ -23,7 +25,19 @@ public class CombinedDTO
         for (Covid19DTO dto : covid19DTO) {
             covidReference = "https://covid-19-data.p.rapidapi.com/country/code?code=" + dto.getCode();
         }
+        recipes = randomRecipesDTO;
 
+    }
+
+
+    public List<RandomRecipesDTO> getRecipes()
+    {
+        return recipes;
+    }
+
+    public void setRecipes(List<RandomRecipesDTO> recipes)
+    {
+        this.recipes = recipes;
     }
 
     public List<Covid19DTO> getCovid() {
