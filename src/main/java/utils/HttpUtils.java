@@ -1,10 +1,7 @@
 package utils;
 
 import com.google.gson.Gson;
-import dtos.ChuckDTO;
-import dtos.CombinedDTO;
-import dtos.Covid19DTO;
-import dtos.DadDTO;
+import dtos.*;
 import edu.emory.mathcs.backport.java.util.Arrays;
 
 import java.io.IOException;
@@ -43,11 +40,15 @@ public class HttpUtils
 
         String chuck = HttpUtils.fetchData("https://api.chucknorris.io/jokes/random");
         String dad = HttpUtils.fetchData("https://icanhazdadjoke.com");
-        String COVID19 = HttpUtils.fetchData("https://covid-19-data.p.rapidapi.com/country/code?code=it");
+        String c19 = HttpUtils.fetchData("https://covid-19-data.p.rapidapi.com/country/code?code=it");
+        String author = HttpUtils.fetchData("https://quotel-quotes.p.rapidapi.com/search/authors");
 
         ChuckDTO chuckDTO = gson.fromJson(chuck, ChuckDTO.class);
         DadDTO dadDTO = gson.fromJson(dad, DadDTO.class);
-        Covid19DTO[] covid19DTO = gson.fromJson(COVID19, Covid19DTO[].class);
+        Covid19DTO[] covid19DTO = gson.fromJson(c19, Covid19DTO[].class);
+        RandomAuthorDTO randomAuthorDTO = gson.fromJson(author, RandomAuthorDTO.class);
+
+
 
         List covid19DTOList = Arrays.asList(covid19DTO);
 
