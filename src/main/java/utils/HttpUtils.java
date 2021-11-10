@@ -2,6 +2,7 @@ package utils;
 
 import com.google.gson.Gson;
 import dtos.*;
+import edu.emory.mathcs.backport.java.util.Arrays;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -11,30 +12,44 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 public class HttpUtils
 {
 
     private static Gson gson = new Gson();
 
-//    public static CombinedDTO fetchDataParallel() throws IOException, MalformedURLException, ExecutionException, InterruptedException
-//    {
-//
-//        ExecutorService es = Executors.newCachedThreadPool();
-//        Future<ChuckDTO> chuckDTOFuture = es.submit(
-//                () -> gson.fromJson(HttpUtils.fetchData("https://api.chucknorris.io/jokes/random"), ChuckDTO.class)
-//        );
-//
-//        Future<DadDTO> dadDTOFuture = es.submit(
-//                () -> gson.fromJson(HttpUtils.fetchData("https://icanhazdadjoke.com"), DadDTO.class)
-//        );
-//
-//        ChuckDTO chuckDTO = chuckDTOFuture.get();
-//        DadDTO dadDTO = dadDTOFuture.get();
-//        CombinedDTO combinedDTO = new CombinedDTO(chuckDTO, dadDTO);
-//
-//        return combinedDTO;
-//    }
+    public static CombinedDTO fetchDataParallel() throws IOException, MalformedURLException, ExecutionException, InterruptedException
+    {
+
+        ExecutorService es = Executors.newCachedThreadPool();
+        Future<ChuckDTO> chuckDTOFuture = es.submit(
+                () -> gson.fromJson(HttpUtils.fetchData("https://api.chucknorris.io/jokes/random"), ChuckDTO.class)
+        );
+
+        Future<DadDTO> dadDTOFuture = es.submit(
+                () -> gson.fromJson(HttpUtils.fetchData("https://icanhazdadjoke.com"), DadDTO.class)
+        );
+
+        Future<Covid19DTO[]> c19DTOFuture = es.submit(
+                () -> gson.fromJson(HttpUtils.fetchData("https://covid-19-data.p.rapidapi.com/country/code?code=it"), Covid19DTO[].class)
+        );
+
+        Future<RandomRecipesDTO[]> rRDTOFuture = es.submit(
+                () -> gson.fromJson(HttpUtils.fetchData("https://random-recipes.p.rapidapi.com/ai-quotes/1"), RandomRecipesDTO[].class)
+        );
+
+        ChuckDTO chuckDTO = chuckDTOFuture.get();
+        DadDTO dadDTO = dadDTOFuture.get();
+        List <Covid19DTO> covid19DTO = Arrays.asList(c19DTOFuture.get());
+        List <RandomRecipesDTO> randomRecipesDTO = Arrays.asList( rRDTOFuture.get());
+        CombinedDTO combinedDTO = new CombinedDTO(chuckDTO, dadDTO, covid19DTO, randomRecipesDTO);
+
+        return combinedDTO;
+    }
 
     public static CombinedDTO fetchDataSequential() throws IOException
     {
