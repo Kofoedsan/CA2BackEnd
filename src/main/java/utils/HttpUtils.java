@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
@@ -50,17 +52,18 @@ public class HttpUtils
 
 
 
-        List covid19DTOList = Arrays.asList(covid19DTO);
+        List <Covid19DTO> covid19DTOList = new ArrayList();
+        Collections.addAll(covid19DTOList, covid19DTO);
+
 
         System.out.println(covid19DTOList.size());
-
-        System.out.println("chuk : " + chuckDTO.getValue());
-        System.out.println("dad " + dadDTO.getJoke());
-        for (Covid19DTO dto : covid19DTO) {
+//        System.out.println("chuk : " + chuckDTO.getValue());
+//        System.out.println("dad " + dadDTO.getJoke());
+        for (Covid19DTO dto : covid19DTOList) {
             System.out.println("covid " + dto.getCountry());
         }
 
-        return new CombinedDTO(chuckDTO, dadDTO, covid19DTO);
+        return new CombinedDTO(chuckDTO, dadDTO, covid19DTOList);
     }
 
 
