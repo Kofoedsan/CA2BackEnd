@@ -9,11 +9,11 @@ public class CombinedDTO
     private String joke1Reference;
     private String joke2;
     private String joke2Reference;
-    private Covid19DTO covid[];
+    private List <Covid19DTO> covid;
     private String covidReference;
 
 
-    public CombinedDTO(ChuckDTO chuckDTO, DadDTO dadDTO, Covid19DTO covid19DTO[])
+    public CombinedDTO(ChuckDTO chuckDTO, DadDTO dadDTO, List <Covid19DTO> covid19DTO)
     {
         joke1 = chuckDTO.getValue();
         joke1Reference = chuckDTO.getUrl();
@@ -26,11 +26,11 @@ public class CombinedDTO
 
     }
 
-    public Covid19DTO[] getCovid() {
+    public List<Covid19DTO> getCovid() {
         return covid;
     }
 
-    public void setCovid(Covid19DTO[] covid) {
+    public void setCovid(List<Covid19DTO> covid) {
         this.covid = covid;
     }
 
