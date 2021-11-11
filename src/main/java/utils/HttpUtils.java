@@ -35,7 +35,7 @@ public class HttpUtils
         );
 
         Future<Covid19DTO[]> c19DTOFuture = es.submit(
-                () -> gson.fromJson(HttpUtils.fetchData("https://covid-19-data.p.rapidapi.com/country/code?code=it"), Covid19DTO[].class)
+                () -> gson.fromJson(HttpUtils.fetchData("https://covid-19-data.p.rapidapi.com/country/code?code=dk"), Covid19DTO[].class)
         );
 
         Future<RandomRecipesDTO[]> rRDTOFuture = es.submit(
@@ -56,7 +56,7 @@ public class HttpUtils
 
         String chuck = HttpUtils.fetchData("https://api.chucknorris.io/jokes/random");
         String dad = HttpUtils.fetchData("https://icanhazdadjoke.com");
-        String c19 = HttpUtils.fetchData("https://covid-19-data.p.rapidapi.com/country/code?code=it");
+        String c19 = HttpUtils.fetchData("https://covid-19-data.p.rapidapi.com/country/code?code=dk");
         String recipes = HttpUtils.fetchData("https://random-recipes.p.rapidapi.com/ai-quotes/1");
 
         ChuckDTO chuckDTO = gson.fromJson(chuck, ChuckDTO.class);

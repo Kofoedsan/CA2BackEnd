@@ -37,7 +37,7 @@ public class FetcherResource
         LocalTime start = LocalTime.now();
         String result = gson.toJson(HttpUtils.fetchDataSequential());
         LocalTime end = LocalTime.now();
-        System.out.println("resultat 1  Sequential" + ChronoUnit.MILLIS.between(start,end));
+        System.out.println("resultat 1  Sequential " + ChronoUnit.MILLIS.between(start,end));
 
         Thread.sleep(5000);
 
