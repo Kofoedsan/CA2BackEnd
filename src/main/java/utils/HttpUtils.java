@@ -8,10 +8,7 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -40,12 +37,14 @@ public class HttpUtils
 
         Future<RandomRecipesDTO[]> rRDTOFuture = es.submit(
                 () -> gson.fromJson(HttpUtils.fetchData("https://random-recipes.p.rapidapi.com/ai-quotes/1"), RandomRecipesDTO[].class)
+
         );
+
 
         ChuckDTO chuckDTO = chuckDTOFuture.get();
         DadDTO dadDTO = dadDTOFuture.get();
-        List <Covid19DTO> covid19DTO = Arrays.asList(c19DTOFuture.get());
-        List <RandomRecipesDTO> randomRecipesDTO = Arrays.asList( rRDTOFuture.get());
+        List<Covid19DTO> covid19DTO = Arrays.asList(c19DTOFuture.get());
+        List<RandomRecipesDTO> randomRecipesDTO = Arrays.asList(rRDTOFuture.get());
         CombinedDTO combinedDTO = new CombinedDTO(chuckDTO, dadDTO, covid19DTO, randomRecipesDTO);
 
         return combinedDTO;

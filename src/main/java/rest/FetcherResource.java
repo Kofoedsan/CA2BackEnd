@@ -43,6 +43,7 @@ public class FetcherResource
 
         LocalTime start2 = LocalTime.now();
         String result2 = gson.toJson(HttpUtils.fetchDataParallel());
+        result2 = result2.replaceAll("[@]","");
         LocalTime end2 = LocalTime.now();
         System.out.println("resultat 2 Parallel " +ChronoUnit.MILLIS.between(start2,end2));
 
